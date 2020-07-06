@@ -1,4 +1,4 @@
-import React,  {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Header from '../../components/Header'
 
@@ -8,20 +8,26 @@ import './styles.css'
 
 function LoginPage() {
 
-    const history = useHistory();
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
-    async function handleSubmit(event) {
+    async function handleSubmit(e) {
+        e.preventDefault()
+        
+        const data = {
+            email,
+            password
+        }
 
-        event.preventDefault();
 
-        history.push('/home')
+        try{
+            const response = await api.get('login', data)
+            console.log(response.data.name)
+
+        }catch(err) {
+            alert('eae us cara')
+        }        
     }
-
-    useEffect(()=> {
-        api.get('drink').then(response => {
-            console.log(response)
-        })
-    }, [])
 
 
 
@@ -32,9 +38,11 @@ function LoginPage() {
                 <div className="container">
                     <main className="login-view">
 
-                        <form onSubmit={handleSubmit}>
-                            <input type="text" className="userInfo" placeholder="Usuário" />
-                            <input type="password" className="userInfo" placeholder="Senha" />
+                        <form onSubmit={handleSubmit} >
+                            <input type="text"
+                                className="userInfo"
+                                placeholder="Usuário" onChange={e=> setEmail(e.target.value)} />
+                            <input type="password" className="userInfo" placeholder="Senha" onChange={e=> setPassword(e.target.value)} />
 
                             <div className="keep-connected">
                                 <input type="checkbox" name="keep-connected" id="keep-connected" />
@@ -53,7 +61,7 @@ function LoginPage() {
                         </div>
 
                         <p>Crie uma agora mesmo e se comunique com seus clientes de uma maneira mais fácil e ágil!</p>
-                        <button type="submit" onClick={() => { history.push('/register') }} className="button">Cadastrar-se</button>
+                        <button type="submit" className="button">Cadastrar-se</button>
                     </aside>
                 </div>
             </div>

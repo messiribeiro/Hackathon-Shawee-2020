@@ -13,11 +13,10 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1"
   },
-
   "proxies": [
     {
-      "path":"/ api",
-      "proxyUrl":"hhtp://localhost:3333/food"
+      "path": "/ api",
+      "proxyUrl": "hhtp://localhost:3333/food"
     }
   ],
   "scripts": {
